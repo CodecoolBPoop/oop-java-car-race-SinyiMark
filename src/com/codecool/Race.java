@@ -2,10 +2,9 @@ package com.codecool;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Race {
-    Random random = new Random();
     private boolean isRaining;
     private boolean isThereABrokenTruck = false;
     List<Car> Cars;
@@ -13,7 +12,6 @@ public class Race {
     List<Motorcycle> Motorcycles;
 
     public static void main(String[] args) {
-	// write your code here
         Race race = new Race();
         race.simulateRace();
 
@@ -28,7 +26,7 @@ public class Race {
         Motorcycles = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            Cars.add(new Car(random.nextInt(31) + 80));
+            Cars.add(new Car());
             Trucks.add(new Truck());
             Motorcycles.add(new Motorcycle());
         }
@@ -79,7 +77,7 @@ public class Race {
     }
 
     private void setRaining(){
-        int rainChance = random.nextInt(11);
+        int rainChance = ThreadLocalRandom.current().nextInt(11);
         if (rainChance<4){
             isRaining = true;
         }else {

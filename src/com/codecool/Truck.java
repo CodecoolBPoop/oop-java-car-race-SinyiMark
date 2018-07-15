@@ -1,18 +1,13 @@
 package com.codecool;
-
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Truck extends Vechile{
-    int normalSpeed;
-    int name;
-    int distanceTraveled;
     boolean broken = false;
     int breakdownTurnsLeft = 0;
-    Random random = new Random();
 
     Truck() {
-        normalSpeed = 100;
-        name = nameGenerator();
+        createName();
+        setNormalSpeed();
     }
 
     public void moveForAnHour(Race race) {
@@ -21,7 +16,7 @@ public class Truck extends Vechile{
 
     public boolean brokenCheck(){
         if (!broken){
-            if (random.nextInt(21) == 1) {
+            if (ThreadLocalRandom.current().nextInt(21) == 1) {
                 broken = true;
                 breakdownTurnsLeft = 2;
             }
@@ -34,17 +29,14 @@ public class Truck extends Vechile{
         return broken;
     }
 
-    private int nameGenerator(){
-        int name = random.nextInt(1001);
-        return name;
+    @Override
+    public void createName() {
+       name = String.valueOf(ThreadLocalRandom.current().nextInt(1001));
     }
-    public void printResult() {
-        System.out.print("Name: ");
-        System.out.print(name);
-        System.out.print(" Travled: ");
-        System.out.print(distanceTraveled);
-        System.out.print(" km");
-        System.out.println("");
+
+    @Override
+    public void setNormalSpeed() {
+        normalSpeed = 100;
     }
 }
 
